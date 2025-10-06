@@ -1,8 +1,13 @@
 import sqlite3
 import pandas as pd
 import logging
+import os
+# Ensure logs directory exists
+LOG_DIR = os.path.join(os.path.dirname(__file__), 'logs')
+os.makedirs(LOG_DIR, exist_ok=True)
+
 logging.basicConfig(
-    filename="logs/get_vendor_summary.log", 
+    filename=os.path.join(LOG_DIR, "get_vendor_summary.log"), 
     level=logging.DEBUG,
     format="%(asctime)s - %(levelname)s - %(message)s", 
     filemode="a"  

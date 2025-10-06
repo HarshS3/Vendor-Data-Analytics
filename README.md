@@ -7,17 +7,20 @@ The project concludes with a comprehensive report containing actionable insights
 ## 📂 Project Structure
 ```
 ├── data/
-│   └── vendor_sales_summary.csv
-├── notebooks/
-│   ├── Exploratory Data Analysis.ipynb
-│   └── Vendor Performance Analysis.ipynb
-├── scripts/
-│   ├── get_vendor_summary.py
-│   └── ingestion_db.py
-├── dashboard/
-│   └── vendor_performance.pbix
-├── reports/
-│   └── Vendor Performance Report.pdf
+│   ├── begin_inventory.csv
+│   ├── end_inventory.csv
+│   ├── purchases.csv
+│   ├── purchase_prices.csv
+│   ├── sales.csv
+│   └── vendor_invoice.csv
+├── Exploratory Data Analysis.ipynb
+├── Vendor Performance Analysis.ipynb
+├── get_vendor_summary.py
+├── ingestion_db.py
+├── vendor_performance.pbix
+├── Vendor Performance Report.pdf
+├── vendor_sales_summary.csv
+├── requirements.txt
 └── README.md
 ```
 
@@ -58,12 +61,43 @@ It answers following business questions:
 
 
 
-## 🚀 How to Run
-1. Clone the repository
-2. Open Jupyter Notebook and run EDA and analysis notebook
-3. Use `get_vendor_summary.py` to generate vendor summary from data
-4. Open `.pbix` file in Power BI for dashboard view
-5. Review the final report in `/reports`
+## 🚀 Setup and How to Run
+
+1) Create a Python environment and install dependencies
+
+Windows (cmd):
+
+```
+cd D:\Projects\VPDA
+python -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+2) Ingest CSVs into SQLite
+
+```
+python ingestion_db.py
+```
+
+This reads all CSVs from `data/` and creates `inventory.db` with tables named after the files (e.g., `purchases`, `sales`, `vendor_invoice`, ...).
+
+3) Build vendor summary table and write KPIs
+
+```
+python get_vendor_summary.py
+```
+
+This creates/updates the `vendor_sales_summary` table in `inventory.db` and logs to `logs/get_vendor_summary.log`. You can optionally export it from the analysis notebook.
+
+4) Explore and visualize
+
+- Open `Vendor Performance Analysis.ipynb` to explore KPIs and charts.
+- Open `vendor_performance.pbix` in Power BI for the dashboard.
+
+Notes
+- Logs are written under `logs/` automatically.
+- If CSVs are very large, consider chunked ingestion (future improvement).
 
 ## 📈 Outputs
 - Vendor performance summary CSV

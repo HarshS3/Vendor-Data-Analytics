@@ -5,8 +5,12 @@ from sqlalchemy import create_engine
 import logging
 import time
 
+# Ensure logs directory exists
+LOG_DIR = os.path.join(os.path.dirname(__file__), 'logs')
+os.makedirs(LOG_DIR, exist_ok=True)
+
 logging.basicConfig(
-    filename="logs/ingestion_db.log", 
+    filename=os.path.join(LOG_DIR, "ingestion_db.log"), 
     level=logging.DEBUG,
     format="%(asctime)s - %(levelname)s - %(message)s", 
     filemode="a"  
