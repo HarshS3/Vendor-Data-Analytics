@@ -18,3 +18,5 @@ vendor_sales_summary.csv
 .DS_Store
 Thumbs.db
 .vscode/
+.venv/
+__pycache__/
